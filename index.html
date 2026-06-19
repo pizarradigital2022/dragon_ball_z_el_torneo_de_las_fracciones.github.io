@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Torneo Mundial de Artes Matemáticas - Fracciones</title>
-              <link rel="icon" type="image/x-icon" href="./resources/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="./resources/favicon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Urbanist:wght@400;700&display=swap" rel="stylesheet">
@@ -12,7 +12,7 @@
     
     <style>
         :root {
-            /* COLORES INSPIRADOS EN EL TATAMI Y EDIFICIO (image_0.png) */
+            /* COLORES INSPIRADOS EN EL TATAMI Y EDIFICIO */
             --tenkaichi-marron-techo: #b37e40; /* Paja/marrón claro del techo principal */
             --tenkaichi-amarillo-paja: #f5dfa3; /* Paja claro para los bordes */
             --tenkaichi-rojo-ladrillo: #bd4a35; /* Ladrillo del muro */
@@ -50,7 +50,7 @@
             box-sizing: border-box;
         }
 
-        /* CONTENEDOR ESTILO TEMPLO TENKAICHI */
+        /* CONTENEDOR ESTILO TEMPLO TEMKAICHI */
         .container {
             background-color: var(--gris-oscuro);
             border: 4px solid var(--tenkaichi-marron-oscuro);
@@ -95,10 +95,10 @@
             margin-bottom: 25px;
         }
 
-        /* ZONA DE IMAGEN TEMÁTICA INTEGRADA */
+        /* ZONA DE IMAGEN TEMÁTICA INTEGRADA AMPLILADA Y OPTIMIZADA */
         .zona-imagen {
             width: 100%;
-            height: 120px;
+            height: 350px; /* Aumentado de 120px a 350px para darles el protagonismo que merecen */
             background-color: #0d1321;
             border: 3px solid var(--tenkaichi-marron-techo);
             border-radius: 6px;
@@ -110,30 +110,44 @@
             position: relative;
             box-shadow: inset 0 0 25px rgba(179, 126, 64, 0.4);
         }
-        .zona-imagen i {
+        
+        .zona-imagen img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ajusta la imagen cubriendo el contenedor sin deformarse */
+            display: block;
+        }
+
+        .zona-imagen i.icono-principal {
             font-size: 4rem;
             color: var(--tenkaichi-amarillo-paja);
             text-shadow: 0 0 20px rgba(245, 223, 163, 0.6);
-            z-index: 1;
+            z-index: 2;
+            position: absolute;
             animation: flotarIcono 3s ease-in-out infinite alternate;
+            pointer-events: none;
+            display: none; /* Se puede ocultar si la imagen ya rellena todo */
         }
+        
         .zona-imagen .paragüas {
             position: absolute;
             font-size: 1.5rem;
             color: var(--tenkaichi-amarillo-bandera);
-            opacity: 0.2;
-            z-index: 0;
+            opacity: 0.3;
+            z-index: 1;
+            pointer-events: none;
         }
         .zona-imagen .banderas {
             position: absolute;
             display: flex;
             gap: 15px;
-            top: 10px;
-            z-index: 0;
+            top: 15px;
+            z-index: 1;
+            pointer-events: none;
         }
         .zona-imagen .bandera-item {
-            font-size: 1.2rem;
-            filter: drop-shadow(0 0 3px rgba(255,255,255,0.2));
+            font-size: 1.5rem;
+            filter: drop-shadow(0 0 5px rgba(0,0,0,0.5));
         }
 
         @keyframes flotarIcono {
@@ -238,7 +252,7 @@
             font-weight: bold;
         }
 
-        /* TABLERO JUEGO 6x6 ESTILO LOSAS DE PIEDRA (image_0.png) */
+        /* TABLERO JUEGO 6x6 ESTILO LOSAS DE PIEDRA */
         .tablero {
             display: grid;
             grid-template-columns: repeat(6, 1fr) !important;
@@ -285,9 +299,8 @@
             transform: scale(1.04);
         }
 
-        /* ====== SOLUCIÓN A LA LEGIBILIDAD: CARTA VOLTEADA ====== */
+        /* CARTA VOLTEADA */
         .carta.volteada {
-            /* Fondo blanco limpio y ultra-brillante para máxima legibilidad */
             background: #ffffff !important;
             background-image: none !important;
             border: 3px solid var(--tenkaichi-marron-oscuro);
@@ -302,7 +315,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            /* Texto marrón oscuro sobre fondo blanco para máximo contraste */
             color: var(--tenkaichi-marron-oscuro);
             font-size: 1.3rem;
             font-family: 'Orbitron', sans-serif;
@@ -456,15 +468,14 @@
             </div>
 
             <button onclick="iniciarJuego()"><i class="fa-solid fa-bolt"></i> ¡Encender Motores de Combate!</button>
-           <hr>
-    <p style="text-align:center; font-size: 12px;">Autor: Joaquín Candañedo.<br><a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="./resources/CC_BY_SA.png" alt="Creative Commons Reconocimiento - Compartir Igual"></a></p>
-
+            <hr>
+            <p style="text-align:center; font-size: 12px;">Autor: Joaquín Candañedo.<br><a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="./resources/CC_BY_SA.png" alt="Creative Commons Reconocimiento - Compartir Igual"></a></p>
         </div>
 
         <div id="pantalla-juego" class="pantalla">
             <div class="zona-imagen" style="box-shadow: inset 0 0 30px rgba(189, 74, 53, 0.4);">
                 <i class="fa-solid fa-fire-burner icono-principal" style="color: var(--tenkaichi-rojo-ladrillo); text-shadow: 0 0 25px rgba(211, 61, 168, 0.5);"></i>
-                  <img src="./resources/Dragon_ball_juego.jpeg" alt="Los contendientes jugando">
+                <img src="./resources/Dragon_ball_juego.jpeg" alt="Los contendientes jugando">
             </div>
 
             <div class="info-juego">
@@ -546,6 +557,7 @@
 
         window.onload = function() { generarInputsGrupos(); };
 
+        // Modales
         function abrirLeyenda() { document.getElementById('modal-leyenda').style.display = 'flex'; }
         function cerrarLeyenda() { document.getElementById('modal-leyenda').style.display = 'none'; }
 
@@ -627,7 +639,6 @@
             
             this.classList.add('volteada');
             const c = cartas[idx];
-            // Renderizar el contenido con texto oscuro sobre fondo blanco
             this.innerHTML = `<div class="carta-contenido">${c.contenido}</div>`;
             cartasVolteadas.push({ elemento: this, datos: c });
 
@@ -651,7 +662,6 @@
                         grupos[turnoActual].fallas++;
                         c1.elemento.classList.remove('volteada'); 
                         c2.elemento.classList.remove('volteada');
-                        // Restaurar el reverso original
                         c1.elemento.innerHTML = `<i class="fa-solid ${iconosCartasBack[parseInt(c1.elemento.dataset.index) % iconosCartasBack.length]}"></i>`;
                         c2.elemento.innerHTML = `<i class="fa-solid ${iconosCartasBack[parseInt(c2.elemento.dataset.index) % iconosCartasBack.length]}"></i>`;
                         cartasVolteadas = []; 
@@ -659,7 +669,7 @@
                         turnoActual = (turnoActual + 1) % grupos.length;
                         bloqueado = false;
                         actualizarMarcadores();
-                    }, 1400); // Dar un poco más de tiempo para ver la carta blanca
+                    }, 1400);
                 }
             }
         }
