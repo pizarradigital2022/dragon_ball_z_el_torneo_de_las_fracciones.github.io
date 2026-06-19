@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dragon Ball Z: El Torneo de las Fracciones</title>
+      <link rel="icon" type="image/x-icon" href="./resources/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Urbanist:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        :root {
+            --dbz-naranja: #ff6600;
+            --dbz-azul: #00bcff;
+            --dbz-oro: #ffcc00;
+            --dbz-rojo: #ff2a2a;
+            --negro-espacio: #0b0f19;
+            --gris-capsula: #1f293d;
+            --gris-oscuro: #111827;
+            --neon-glow-azul: 0px 0px 15px rgba(0, 188, 255, 0.6);
+            --neon-glow-naranja: 0px 0px 15px rgba(255, 102, 0, 0.6);
+        }
+
+        body {
+            font-family: 'Urbanist', sans-serif;
+            background-color: var(--negro-espacio);
+            background-image: 
+                linear-gradient(rgba(255, 102, 0, 0.03) 2px, transparent 2px), 
+                linear-gradient(90deg, rgba(0, 188, 255, 0.03) 2px, transparent 2px);
+            background-size: 30px 30px;
+            color: #f3f4f6;
+            margin: 0;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .container {
+            background-color: var(--gris-oscuro);
+            border: 3px solid var(--dbz-azul);
+            border-radius: 12px;
+            padding: 20px;
+            width: 98%;
+            max-width: 950px;
+            box-shadow: var(--neon-glow-azul);
+            text-align: center;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .container::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 30px; height: 30px;
+            border-top: 5px solid var(--dbz-naranja); border-left: 5px solid var(--dbz-naranja);
+        }
+        .container::after {
+            content: ''; position: absolute; bottom: 0; right: 0; width: 30px; height: 30px;
+            border-bottom: 5px solid var(--dbz-naranja); border-right: 5px solid var(--dbz-naranja);
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            color: var(--dbz-naranja);
+            text-shadow: 3px 3px 0px #000, var(--neon-glow-naranja);
+            font-size: 2.5rem;
+            margin: 0 0 5px 0;
+            letter-spacing: 2px;
+        }
+
+        h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            color: var(--dbz-oro);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+        }
+
+        .zona-imagen {
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(45deg, #111827, #1f293d);
+            border: 2px solid var(--dbz-naranja);
+            border-radius: 8px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+            box-shadow: inset 0 0 20px rgba(255, 102, 0, 0.3);
+        }
+        .zona-imagen i {
+            font-size: 2.5rem;
+            color: var(--dbz-oro);
+            animation: pulse 2s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); filter: drop-shadow(0 0 2px var(--dbz-oro)); }
+            100% { transform: scale(1.1); filter: drop-shadow(0 0 15px var(--dbz-naranja)); }
+        }
+
+        button, select {
+            background-color: var(--dbz-naranja);
+            color: #000;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: bold;
+            font-size: 1.05rem;
+            padding: 12px 24px;
+            border: 2px solid var(--dbz-oro);
+            border-radius: 6px;
+            cursor: pointer;
+            box-shadow: 4px 4px 0px #000;
+            transition: all 0.1s ease;
+            text-transform: uppercase;
+        }
+
+        button:hover {
+            background-color: var(--dbz-azul);
+            color: #000;
+            border-color: #fff;
+            box-shadow: 4px 4px 0px var(--dbz-naranja);
+        }
+
+        input[type="text"], input[type="number"], select {
+            font-family: 'Share Tech Mono', monospace;
+            background-color: var(--gris-capsula);
+            color: #fff;
+            padding: 9px;
+            font-size: 1.05rem;
+            border: 2px solid var(--dbz-azul);
+            border-radius: 4px;
+            margin: 5px;
+        }
+
+        .pantalla { display: none; }
+        .activa { display: block; }
+
+        .config-seccion {
+            margin: 15px 0;
+            padding: 20px;
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid #2a364f;
+            border-radius: 8px;
+            text-align: left;
+        }
+
+        .config-seccion h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--dbz-oro);
+            margin-top: 0;
+            font-size: 1.1rem;
+        }
+
+        #inputs-grupos {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .info-juego {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background-color: var(--gris-capsula);
+            border: 2px solid var(--dbz-azul);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 15px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.05rem;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .turno-actual {
+            padding: 5px 15px;
+            border-radius: 4px;
+            border: 2px solid #fff;
+            color: #000;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .reloj {
+            background-color: #000;
+            padding: 6px 15px;
+            border: 2px solid var(--dbz-rojo);
+            border-radius: 4px;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 1.3rem;
+            color: var(--dbz-rojo);
+            box-shadow: 0 0 10px rgba(255, 42, 42, 0.4);
+        }
+
+        /* TABLERO CALIBRADO PARA GRID 6x6 */
+        .tablero {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr) !important;
+            grid-template-rows: repeat(6, 1fr);
+            gap: 8px;
+            margin-top: 15px;
+            perspective: 1000px;
+        }
+
+        .carta {
+            height: 85px;
+            background-color: #1a233a;
+            background-image: radial-gradient(var(--dbz-naranja) 1px, transparent 0);
+            background-size: 12px 12px;
+            border: 2px solid #2e3f61;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 3px 3px 0px #000;
+            user-select: none;
+            box-sizing: border-box;
+            padding: 4px;
+            transition: all 0.15s ease;
+        }
+
+        .carta i {
+            font-size: 1.6rem;
+            color: var(--dbz-oro);
+            filter: drop-shadow(0px 0px 4px rgba(255,204,0,0.6));
+        }
+
+        .carta:hover {
+            border-color: var(--dbz-azul);
+            box-shadow: 0px 0px 10px var(--dbz-azul);
+            transform: scale(1.03);
+        }
+
+        .carta.volteada {
+            background-color: #f8fafc;
+            background-image: none;
+            border-color: var(--dbz-oro);
+            box-shadow: 0px 0px 12px rgba(255,215,0,0.4);
+            cursor: default;
+        }
+
+        /* MOTOR DE RENDERIZADO DE FRACCIONES COMPACTO */
+        .carta-contenido {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #0f172a;
+            font-size: 1.15rem;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: bold;
+        }
+
+        .operacion-flex {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+        }
+
+        .fraccion {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            line-height: 0.85;
+            padding: 0 2px;
+        }
+
+        .numerador {
+            border-bottom: 2px solid #0f172a;
+            padding-bottom: 2px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .denominador {
+            padding-top: 2px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .entero {
+            font-size: 1.3rem;
+            padding: 0 2px;
+        }
+
+        .signo {
+            font-size: 1.1rem;
+            font-weight: 900;
+            padding: 0 2px;
+        }
+
+        .carta.emparejada {
+            background-color: rgba(31, 41, 55, 0.4);
+            background-image: none;
+            border: 2px dashed rgba(255, 255, 255, 0.1);
+            box-shadow: none;
+            pointer-events: none;
+        }
+        .carta.emparejada * { visibility: hidden; }
+
+        /* MODAL */
+        .btn-leyenda {
+            background-color: var(--gris-capsula);
+            color: var(--dbz-azul);
+            border: 2px solid var(--dbz-azul);
+            font-size: 0.85rem;
+            padding: 6px 12px;
+            box-shadow: none;
+        }
+        .btn-leyenda:hover {
+            background-color: var(--dbz-azul);
+            color: #000;
+            box-shadow: 0 0 10px var(--dbz-azul);
+        }
+
+        .modal-fondo {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-contenedor {
+            background: var(--gris-oscuro);
+            border: 3px solid var(--dbz-oro);
+            border-radius: 10px;
+            padding: 25px;
+            width: 90%;
+            max-width: 650px;
+            text-align: left;
+            box-shadow: 0px 0px 25px var(--dbz-oro);
+        }
+        .modal-contenedor h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--dbz-naranja);
+            margin-top: 0;
+            border-bottom: 2px solid #2a364f;
+            padding-bottom: 10px;
+        }
+        .modal-contenedor ul { padding-left: 20px; }
+        .modal-contenedor li { margin-bottom: 12px; font-size: 1rem; line-height: 1.4; }
+        
+        .modal-cerrar {
+            margin-top: 15px;
+            float: right;
+            padding: 8px 20px;
+            font-size: 0.9rem;
+        }
+
+        .lista-resultados {
+            list-style: none;
+            padding: 0;
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 20px auto;
+        }
+        .lista-resultados li {
+            margin: 12px 0; padding: 15px;
+            background: rgba(31, 41, 55, 0.6);
+            border-radius: 6px; border-left: 6px solid var(--dbz-naranja);
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .stats-equipo { font-size: 0.9rem; color: #9ca3af; font-family: 'Share Tech Mono', monospace; }
+        .ganador { font-family: 'Orbitron', sans-serif; font-size: 2.2rem; color: var(--dbz-oro); margin: 25px 0; text-transform: uppercase; text-shadow: 0 0 10px var(--dbz-oro); }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <div id="pantalla-inicio" class="pantalla activa">
+            <div class="zona-imagen">
+                <i class="fa-solid fa-dragon"></i>
+            </div>
+            <h1>DRAGON BALL Z</h1>
+            <h2>El Torneo de las Fracciones</h2>
+          
+            <div class="config-seccion">
+                <h3><i class="fa-solid fa-scroll"></i> Pergamino de Directivas Científicas (Instrucciones)</h3>
+                <p>¡Bienvenidos Guerreros Z al Gran Torneo de las Artes Matemáticas! Para reunir las 7 Bolas de Dragón y derrotar a los villanos, debéis demostrar vuestro dominio sobre el control del Ki Fraccionario.</p>
+                <ul>
+                    <li>El tablero contiene <b>36 cartas (6 filas x 6 columnas)</b>.</li>
+                    <li>Encontraréis 18 tarjetas con <b>operaciones</b> y 18 con sus respectivos <b>resultados simplificados</b>.</li>
+                    <li><b>Suma y Resta:</b> ¡Atención! Si tienen diferente denominador, debéis buscar primero el <i>mínimo común múltiplo (m.c.m.)</i>.</li>
+                    <li><b>Multiplicación y División:</b> Multiplica en línea para el producto, o cruza las ráfagas de energía (en cruz) para la división. ¡Simplifica siempre hasta la fracción irreducible!</li>
+                </ul>
+            </div>
+
+            <div class="config-seccion">
+                <h3><i class="fa-solid fa-sliders"></i> Configuración del Radar Dragón</h3>
+                <label><b>Tiempo de Recarga de Energía:</b></label>
+                <select id="tiempo-limite">
+                    <option value="5">5 Minutos</option>
+                    <option value="10" selected>10 Minutos</option>
+                    <option value="15">15 Minutos</option>
+                </select>
+                <br><br>
+                <label><b>Equipos de Guerreros Z:</b></label>
+                <input type="number" id="num-grupos" min="1" max="6" value="2" onchange="generarInputsGrupos()">
+                <div id="inputs-grupos"></div>
+            </div>
+
+            <button onclick="iniciarJuego()"><i class="fa-solid fa-fire"></i> ¡Iniciar Combate!</button>
+                      <hr>
+    <p style="text-align:center; font-size: 12px;">Autor: Joaquín Candañedo.<br><a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="./resources/CC_BY_SA.png" alt="Creative Commons Reconocimiento - Compartir Igual"></a></p>
+
+        </div>
+
+        <div id="pantalla-juego" class="pantalla">
+            <div class="zona-imagen">
+                <i class="fa-solid fa-burst"></i>
+            </div>
+            <div class="info-juego">
+                <div>Atacando: <span id="grupo-actual" class="turno-actual">-</span></div>
+                <div class="reloj"><i class="fa-regular fa-clock"></i> <span id="cuenta-atras">00:00</span></div>
+                <button class="btn-leyenda" onclick="abrirLeyenda()"><i class="fa-solid fa-book-open"></i> Ver Reglas rápidas</button>
+                <div id="puntuaciones-vivas" style="width: 100%; margin-top: 10px;"></div>
+            </div>
+            <div class="tablero" id="tablero"></div>
+        </div>
+
+        <div id="pantalla-resultados" class="pantalla">
+            <div class="zona-imagen">
+                <i class="fa-solid fa-trophy"></i>
+            </div>
+            <h1>¡Fin del Torneo!</h1>
+            <h2>Estadísticas de la Batalla</h2>
+            <div id="ganador-anuncio" class="ganador"></div>
+            <ul id="lista-puntuaciones" class="lista-resultados"></ul>
+            <button onclick="reiniciarJuego()"><i class="fa-solid fa-arrow-rotate-left"></i> Volver a luchar</button>
+        </div>
+    </div>
+
+    <div id="modal-leyenda" class="modal-fondo">
+        <div class="modal-contenedor">
+            <h3><i class="fa-solid fa-wand-magic-sparkles"></i> Formulario de Técnicas de Combate</h3>
+            <ul>
+                <li><b>Suma/Resta de Distinto Denominador:</b> Calcular el m.c.m. de los denominadores. Transformar numeradores y luego operar manteniendo el nuevo denominador común.</li>
+                <li><b>Multiplicación ($\cdot$):</b> $\frac{a}{b} \cdot \frac{c}{d} = \frac{a \cdot c}{b \cdot d}$ (Operación directa en línea horizontal).</li>
+                <li><b>División ($:$):</b> $\frac{a}{b} : \frac{c}{d} = \frac{a \cdot d}{b \cdot c}$ (Multiplicación cruzada o técnica del caramelo).</li>
+                <li><b>Fracción Irreducible:</b> Divide numerador y denominador por su Máximo Común Divisor (M.C.D.) hasta que no se puedan reducir más.</li>
+            </ul>
+            <button class="modal-cerrar" onclick="cerrarLeyenda()">¡Entendido!</button>
+        </div>
+    </div>
+
+    <script>
+        // BANCO DE DATOS DE 18 PAREJAS (36 CARTAS TOTALES PARA DISPOSICIÓN 6x6)
+        // Estructura HTML limpia y súper compactada para evitar desbordamientos en celdas pequeñas
+        const bancoFormulas = [
+            // SUMAS DISTINTO DENOMINADOR (Parejas 1-5)
+            { idReal: 1, operacion: `<div class="operacion-flex"><div class="fraccion"><div class="numerador">1</div><div class="denominador">2</div></div><span class="signo">+</span><div class="fraccion"><div class="numerador">1</div><div class="denominador">4</div></div></div>`, resultado: `<div class="operacion-flex"><div class="fraccion"><div class="numerador">3</div><div class="denominador">4</div></div></div>` },
+            { idReal: 2, operacion: `<div class="operacion-flex"><div class="fraccion"><div class="numerador">2</div><div class="denominador">3</div></div><span class="signo">+</span><div class="fraccion"><div class="numerador">1</div><div class="denominador">6</div></div></div>`, resultado: `<div class="operacion-flex"><div class="fraccion"><div class="numerador">5</div><div class="denominador">6</div></div></div>` },
+            { idReal: 3, operacion: `<div class="operacion-flex"><div class="fraccion"><div class="numerador">1</div><div class="denominador">5</div></div><span class="signo">+</span><div class="fraccion"><div class="numerador">3</div><div class="denominador">10</div></div></div>`, resultado: `<div class="operacion-flex"><div class="fraccion"><div class="numerador">1</div><div class="denominador">2</div></div></div>` },
+            { idReal: 4, operacion: `<div class="operacion-flex"><div class="fraccion"><div class="numerador">3</div><div class="denominador">4</div></div><span class="signo">+</span><div class="fraccion"><div class="numerador">1</div><div class="denominador">8</div></div></div>`, resultado: `<div class="operacion-flex"><div class="fraccion"><div class="numerador">7</div><div class="denominador">8</div></div></div>` },
+            { idReal: 5, operacion: `<div class="operacion-flex"><div class="fraccion"><div class="numerador">2</div><div class="denominador">5</div></div><span class="signo">+</span><div class="fraccion"><div class="numerador">1</div><div class="denominador">2</div></div></div>`, resultado: `<div class="operacion-flex"><div class="fraccion"><div class="numerador">9</div><div class="denominador">10</div></div></div>` },
+            
+            // RESTAS DISTINTO DENOMINADOR (Parejas 6-9)
+            { idReal: 6, operacion: `<div class="operacion-flex"><div class="fraccion"><div class="numerador">3</div><div class="denominador">4</div></div><span class="signo">-</span><div class="fraccion"><div class="numerador">1</div><div class="denominador">2</div></div></div>`, resultado: `<div class="operacion-flex"><div class="fraccion"><div class="numerador">1</div><div class="denominador">4</div></div></div>` },
+            { idReal: 7, operacion: `<div class="operacion-flex"><div class="fraccion"><div class="numerador">5</div><div class="denominador">6</div></div><span class="signo">-</span><div class="fraccion"><div class="numerador">1</div><div class="denominador">3</div></div></div>`, resultado: `<div class="operacion-flex"><div class="fraccion"><div class="numerador">1</div><div class="denominador">2</div></div></div>` },
+            { idReal: 8, operacion: `<div class="operacion-flex"><div class="fraccion"><div class="numerador">7</div><div class="denominador">10</div></div><span class="signo">-</span><div class="fraccion"><div class="numerador">2</div><div class="denominador">5</div></div></div>`, resultado: `<div class="operacion-flex"><div class="fraccion"><div class="numerador">3</div><div class="denominador">10</div></div></div>` },
+            { idReal: 9, operacion: `<div class="operacion-flex"><div class="fraccion"><div class="numerador">4</div><div class="denominador">3</div></div><span class="signo">-</span><div class="fraccion"><div class="numerador">1</div><div class="denominador">6</div></div></div>`, resultado: `<div class="operacion-flex"><div class="fraccion"><div class="numerador">7</div><div class="denominador">6</div></div></div>` },
+            
+            // MULTIPLICACIONES (Parejas 10-14)
+            { idReal: 10, operacion: `<div class="operacion-flex"><div class="fraccion"><div class="numerador">2</div><div class="denominador">3</div></div><span class="signo">·</span><div class="fraccion"><div class="numerador">3</div><div class="denominador">4</div></div></div>`, resultado: `<div class="operacion-flex"><div class="fraccion"><div class="numerador">1</div><div class="denominador">2</div></div></div>` },
+            { idReal: 11, operacion: `<div class="operacion-flex"><div class="fraccion"><div class="numerador">1</div><div class="denominador">5</div></div><span class="signo">·</span><div class="fraccion"><div class="numerador">5</div><div class="denominador">3</div></div></div>`, resultado: `<div class="operacion-flex"><div class="fraccion"><div class="numerador">1</div><div class="denominador">3</div></div></div>` },
+            { idReal: 12, operacion: `<div class="operacion-flex"><div class="fraccion"><div class="numerador">4</div><div class="denominador">5</div></div><span class="signo">·</span><div class="fraccion"><div class="numerador">2</div><div class="denominador">3</div></div></div>`, resultado: `<div class="operacion-flex"><div class="fraccion"><div class="numerador">8</div><div class="denominador">15</div></div></div>` },
+            { idReal: 13, operacion: `<div class="operacion-flex"><span class="entero">3</span><span class="signo">·</span><div class="fraccion"><div class="numerador">2</div><div class="denominador">9</div></div></div>`, resultado: `<div class="operacion-flex"><div class="fraccion"><div class="numerador">2</div><div class="denominador">3</div></div></div>` },
+            { idReal: 14, operacion: `<div class="operacion-flex"><div class="fraccion"><div class="numerador">3</div><div class="denominador">7</div></div><span class="signo">·</span><div class="fraccion"><div class="numerador">14</div><div class="denominador">3</div></div></div>`, resultado: `<div class="operacion-flex"><span class="entero">2</span></div>` },
+
+            // DIVISIONES (Parejas 15-18)
+            { idReal: 15, operacion: `<div class="operacion-flex"><div class="fraccion"><div class="numerador">1</div><div class="denominador">2</div></div><span class="signo">:</span><div class="fraccion"><div class="numerador">1</div><div class="denominador">4</div></div></div>`, resultado: `<div class="operacion-flex"><span class="entero">2</span></div>` },
+            { idReal: 16, operacion: `<div class="operacion-flex"><div class="fraccion"><div class="numerador">2</div><div class="denominador">5</div></div><span class="signo">:</span><div class="fraccion"><div class="numerador">3</div><div class="denominador">4</div></div></div>`, resultado: `<div class="operacion-flex"><div class="fraccion"><div class="numerador">8</div><div class="denominador">15</div></div></div>` },
+            { idReal: 17, operacion: `<div class="operacion-flex"><div class="fraccion"><div class="numerador">3</div><div class="denominador">4</div></div><span class="signo">:</span><div class="fraccion"><div class="numerador">9</div><div class="denominador">8</div></div></div>`, resultado: `<div class="operacion-flex"><div class="fraccion"><div class="numerador">2</div><div class="denominador">3</div></div></div>` },
+            { idReal: 18, operacion: `<div class="operacion-flex"><div class="fraccion"><div class="numerador">1</div><div class="denominador">3</div></div><span class="signo">:</span><span class="entero">2</span></div>`, resultado: `<div class="operacion-flex"><div class="fraccion"><div class="numerador">1</div><div class="denominador">6</div></div></div>` }
+        ];
+
+        const coloresEquipos = ["#00bcff", "#ff6600", "#ffcc00", "#ff2a2a", "#a855f7", "#10b981"];
+        const iconosCartasBack = ["fa-circle-dot", "fa-star", "fa-bolt", "fa-shield-halved", "fa-capsules"];
+
+        let grupos = [];
+        let turnoActual = 0;
+        let cartas = [];
+        let cartasVolteadas = [];
+        let bloqueado = false;
+        let intervaloTemporizador;
+        let tiempoRestanteSegundos = 0;
+
+        window.onload = function() { generarInputsGrupos(); };
+
+        function abrirLeyenda() { document.getElementById('modal-leyenda').style.display = 'flex'; }
+        function cerrarLeyenda() { document.getElementById('modal-leyenda').style.display = 'none'; }
+
+        function generarInputsGrupos() {
+            const numInput = document.getElementById('num-grupos');
+            const contenedor = document.getElementById('inputs-grupos');
+            if (numInput && contenedor) {
+                const num = parseInt(numInput.value) || 2;
+                contenedor.innerHTML = '';
+                for (let i = 1; i <= num; i++) {
+                    const colorActual = coloresEquipos[(i - 1) % coloresEquipos.length];
+                    contenedor.innerHTML += `
+                    <div style="margin: 5px 0; display: flex; align-items: center;">
+                        <span style="color:${colorActual}; font-size:1.3rem; margin-right:12px;"><i class="fa-solid fa-user-ninja"></i></span>
+                        <input type="text" class="nombre-grupo" value="Guerreros ${i}" style="flex-grow:1; max-width:320px; border-color:${colorActual}">
+                    </div>`;
+                }
+            }
+        }
+
+        function cambiarPantalla(id) {
+            document.querySelectorAll('.pantalla').forEach(p => p.classList.remove('activa'));
+            document.getElementById(id).classList.add('activa');
+        }
+
+        function iniciarJuego() {
+            const inputs = document.querySelectorAll('.nombre-grupo');
+            grupos = [];
+            inputs.forEach((input, index) => {
+                grupos.push({ nombre: input.value, puntos: 0, intentos: 0, fallas: 0, color: coloresEquipos[index % coloresEquipos.length] });
+            });
+            turnoActual = 0; cartasVolteadas = []; bloqueado = false;
+            tiempoRestanteSegundos = parseInt(document.getElementById('tiempo-limite').value) * 60;
+            
+            clearInterval(intervaloTemporizador);
+            intervaloTemporizador = setInterval(() => {
+                tiempoRestanteSegundos--;
+                const min = Math.floor(tiempoRestanteSegundos / 60).toString().padStart(2, '0');
+                const seg = (tiempoRestanteSegundos % 60).toString().padStart(2, '0');
+                document.getElementById('cuenta-atras').innerText = `${min}:${seg}`;
+                if (tiempoRestanteSegundos <= 0) { clearInterval(intervaloTemporizador); finalizarJuego(); }
+            }, 1000);
+            
+            actualizarMarcadores();
+            crearTablero();
+            cambiarPantalla('pantalla-juego');
+        }
+
+        function crearTablero() {
+            const contenedor = document.getElementById('tablero');
+            contenedor.innerHTML = '';
+            let baraja = [];
+            
+            // Generar los dos tipos de cartas del banco
+            bancoFormulas.forEach((item) => {
+                baraja.push({ id: item.idReal, contenido: item.operacion, tipo: 'operacion' });
+                baraja.push({ id: item.idReal, contenido: item.resultado, tipo: 'resultado' });
+            });
+
+            // Algoritmo Fisher-Yates de barajado aleatorio eficiente
+            for (let i = baraja.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [baraja[i], baraja[j]] = [baraja[j], baraja[i]];
+            }
+            
+            cartas = baraja;
+            cartas.forEach((carta, index) => {
+                const el = document.createElement('div');
+                el.classList.add('carta');
+                el.dataset.index = index;
+                el.innerHTML = `<i class="fa-solid ${iconosCartasBack[index % iconosCartasBack.length]}"></i>`;
+                el.addEventListener('click', voltearCarta);
+                contenedor.appendChild(el);
+            });
+        }
+
+        function voltearCarta() {
+            if (bloqueado) return;
+            const idx = this.dataset.index;
+            if (this.classList.contains('volteada') || this.classList.contains('emparejada')) return;
+            
+            this.classList.add('volteada');
+            const c = cartas[idx];
+            this.innerHTML = `<div class="carta-contenido">${c.contenido}</div>`;
+            cartasVolteadas.push({ elemento: this, datos: c });
+
+            if (cartasVolteadas.length === 2) {
+                grupos[turnoActual].intentos++;
+                bloqueado = true;
+                const [c1, c2] = cartasVolteadas;
+                
+                // Verificación estricta: Mismo id, pero tipo diferente (Operación + Resultado)
+                if (c1.datos.id === c2.datos.id && c1.datos.tipo !== c2.datos.tipo) {
+                    setTimeout(() => {
+                        c1.elemento.classList.add('emparejada'); 
+                        c2.elemento.classList.add('emparejada');
+                        grupos[turnoActual].puntos++; 
+                        cartasVolteadas = []; 
+                        bloqueado = false;
+                        actualizarMarcadores(); 
+                        comprobarFinJuego();
+                    }, 600);
+                } else {
+                    setTimeout(() => {
+                        grupos[turnoActual].fallas++;
+                        c1.elemento.classList.remove('volteada'); 
+                        c2.elemento.classList.remove('volteada');
+                        c1.elemento.innerHTML = `<i class="fa-solid ${iconosCartasBack[parseInt(c1.elemento.dataset.index) % iconosCartasBack.length]}"></i>`;
+                        c2.elemento.innerHTML = `<i class="fa-solid ${iconosCartasBack[parseInt(c2.elemento.dataset.index) % iconosCartasBack.length]}"></i>`;
+                        cartasVolteadas = []; 
+                        
+                        // Rotar el turno al siguiente equipo en caso de fallo
+                        turnoActual = (turnoActual + 1) % grupos.length;
+                        bloqueado = false;
+                        actualizarMarcadores();
+                    }, 1200);
+                }
+            }
+        }
+
+        function actualizarMarcadores() {
+            const spanGrupo = document.getElementById('grupo-actual');
+            if(spanGrupo && grupos[turnoActual]) {
+                spanGrupo.innerText = grupos[turnoActual].nombre;
+                spanGrupo.style.backgroundColor = grupos[turnoActual].color;
+            }
+            const contPuntos = document.getElementById('puntuaciones-vivas');
+            if(contPuntos) {
+                contPuntos.innerHTML = '<div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">' + 
+                    grupos.map(g => `<span style="border-bottom:3px solid ${g.color}; padding:2px 8px; font-size:0.9rem;">${g.nombre}: <b>${g.puntos} Ki (Puntos)</b></span>`).join('') + '</div>';
+            }
+        }
+
+        function comprobarFinJuego() {
+            const totalEmparejadas = document.querySelectorAll('.carta.emparejada').length;
+            if (totalEmparejadas === cartas.length) {
+                clearInterval(intervaloTemporizador);
+                finalizarJuego();
+            }
+        }
+
+        function finalizarJuego() {
+            let maxPuntos = -1;
+            let ganadores = [];
+            
+            // Buscar el equipo o equipos con más puntos
+            grupos.forEach(g => {
+                if(g.puntos > maxPuntos) {
+                    maxPuntos = g.puntos;
+                    ganadores = [g.nombre];
+                } else if(g.puntos === maxPuntos) {
+                    ganadores.push(g.nombre);
+                }
+            });
+
+            document.getElementById('ganador-anuncio').innerText = ganadores.length > 1 ? `¡Empate de Poder: ${ganadores.join(' y ')}!` : `¡Ganador: ${ganadores[0]}!`;
+            
+            const lista = document.getElementById('lista-puntuaciones');
+            lista.innerHTML = '';
+            grupos.sort((a,b) => b.puntos - a.puntos).forEach(g => {
+                lista.innerHTML += `
+                <li>
+                    <span style="color:${g.color}; font-weight:bold;"><i class="fa-solid fa-medal"></i> ${g.nombre}</span>
+                    <span class="stats-equipo">Ki obtenido: ${g.puntos} | Intentos: ${g.intentos} | Fallos: ${g.fallas}</span>
+                </li>`;
+            });
+            cambiarPantalla('pantalla-resultados');
+        }
+
+        function reiniciarJuego() {
+            cambiarPantalla('pantalla-inicio');
+        }
+    </script>
+</body>
+</html>
