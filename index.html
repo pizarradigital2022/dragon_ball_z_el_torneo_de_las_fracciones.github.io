@@ -13,14 +13,14 @@
     <style>
         :root {
             /* COLORES INSPIRADOS EN EL TATAMI Y EDIFICIO */
-            --tenkaichi-marron-techo: #b37e40;
-            --tenkaichi-amarillo-paja: #f5dfa3;
-            --tenkaichi-rojo-ladrillo: #bd4a35;
-            --tenkaichi-crema-muro: #f9f5e1;
-            --tenkaichi-piedra-losas: #f0f1f3;
-            --tenkaichi-marron-oscuro: #5e3c23;
-            --tenkaichi-amarillo-bandera: #ffde00;
-            --tenkaichi-magenta-bandera: #d33da8;
+            --tenkaichi-marron-techo: #b37e40; /* Paja/marrón claro del techo principal */
+            --tenkaichi-amarillo-paja: #f5dfa3; /* Paja claro para los bordes */
+            --tenkaichi-rojo-ladrillo: #bd4a35; /* Ladrillo del muro */
+            --tenkaichi-crema-muro: #f9f5e1; /* Crema suave del muro y detalles */
+            --tenkaichi-piedra-losas: #f0f1f3; /* Piedra blanca-gris de las losas del tatami */
+            --tenkaichi-marron-oscuro: #5e3c23; /* Marrón oscuro para marcos y texto */
+            --tenkaichi-amarillo-bandera: #ffde00; /* Amarillo vibrante de banderas */
+            --tenkaichi-magenta-bandera: #d33da8; /* Magenta vibrante de banderas */
 
             /* COLORES DE INTERFAZ GENERAL */
             --dbz-oro: #ffcc00;
@@ -28,13 +28,14 @@
             --negro-torneo: #0b0e14;
             --gris-capsula: #1e2530;
             --gris-oscuro: #121620;
-            --dbz-naranja: #ff6600;
+            --dbz-naranja: #ff6600; /* Naranja Goku para acentos */
             --neon-glow-amarillo: 0px 0px 10px rgba(255, 222, 0, 0.4);
         }
 
         body {
             font-family: 'Urbanist', sans-serif;
             background-color: var(--negro-torneo);
+            /* Fondo con patrón de losas de piedra del tatami */
             background-image: 
                 linear-gradient(rgba(255, 255, 255, 0.05) 1.5px, transparent 1.5px),
                 linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1.5px, transparent 1.5px);
@@ -49,7 +50,7 @@
             box-sizing: border-box;
         }
 
-        /* CONTENEDOR ESTILO TEMPLO TENKAICHI */
+        /* CONTENEDOR ESTILO TEMPLO TEMKAICHI */
         .container {
             background-color: var(--gris-oscuro);
             border: 4px solid var(--tenkaichi-marron-oscuro);
@@ -94,24 +95,64 @@
             margin-bottom: 25px;
         }
 
-        /* ZONA DE IMAGEN LIMPIA (SIN FLORITURAS, SOLO LA IMAGEN) */
+        /* ZONA DE IMAGEN TEMÁTICA INTEGRADA AMPLILADA Y OPTIMIZADA */
         .zona-imagen {
             width: 100%;
-            height: 450px; /* Tamaño generoso y optimizado */
+            height: 350px; /* Aumentado de 120px a 350px para darles el protagonismo que merecen */
             background-color: #0d1321;
             border: 3px solid var(--tenkaichi-marron-techo);
             border-radius: 6px;
             margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            position: relative;
+            box-shadow: inset 0 0 25px rgba(179, 126, 64, 0.4);
         }
         
         .zona-imagen img {
             width: 100%;
             height: 100%;
-            object-fit: contain; /* Evita recortes molestos para que se aprecie el dibujo completo */
-            background-color: #0d1321;
+            object-fit: cover; /* Ajusta la imagen cubriendo el contenedor sin deformarse */
             display: block;
+        }
+
+        .zona-imagen i.icono-principal {
+            font-size: 4rem;
+            color: var(--tenkaichi-amarillo-paja);
+            text-shadow: 0 0 20px rgba(245, 223, 163, 0.6);
+            z-index: 2;
+            position: absolute;
+            animation: flotarIcono 3s ease-in-out infinite alternate;
+            pointer-events: none;
+            display: none; /* Se puede ocultar si la imagen ya rellena todo */
+        }
+        
+        .zona-imagen .paragüas {
+            position: absolute;
+            font-size: 1.5rem;
+            color: var(--tenkaichi-amarillo-bandera);
+            opacity: 0.3;
+            z-index: 1;
+            pointer-events: none;
+        }
+        .zona-imagen .banderas {
+            position: absolute;
+            display: flex;
+            gap: 15px;
+            top: 15px;
+            z-index: 1;
+            pointer-events: none;
+        }
+        .zona-imagen .bandera-item {
+            font-size: 1.5rem;
+            filter: drop-shadow(0 0 5px rgba(0,0,0,0.5));
+        }
+
+        @keyframes flotarIcono {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(-8px); }
         }
 
         /* BOTONES ESTILO GUERRERO */
@@ -220,16 +261,17 @@
             margin-top: 20px;
             perspective: 1000px;
             padding: 10px;
-            background-color: var(--tenkaichi-crema-muro);
+            background-color: var(--tenkaichi-crema-muro); /* Fondo claro simulando el patio de arena */
             border: 3px solid var(--tenkaichi-marron-oscuro);
             background-image: 
                 linear-gradient(rgba(179, 126, 64, 0.05) 1.5px, transparent 1.5px),
                 linear-gradient(90deg, rgba(179, 126, 64, 0.05) 1.5px, transparent 1.5px);
-            background-size: 50px 50px;
+            background-size: 50px 50px; /* Tamaño de losas de patio */
         }
 
         .carta {
             height: 95px;
+            /* Estilo del reverso: Paja/marrón con detalles dorados */
             background-color: var(--tenkaichi-marron-oscuro);
             background-image: radial-gradient(var(--tenkaichi-amarillo-bandera) 1.5px, transparent 0);
             background-size: 14px 14px;
@@ -257,6 +299,7 @@
             transform: scale(1.04);
         }
 
+        /* CARTA VOLTEADA */
         .carta.volteada {
             background: #ffffff !important;
             background-image: none !important;
@@ -265,6 +308,7 @@
             cursor: default;
         }
 
+        /* DISEÑO DE FRACCIONES DENTRO DE CARTAS */
         .carta-contenido {
             width: 100%;
             height: 100%;
@@ -317,6 +361,7 @@
         }
         .carta.emparejada * { visibility: hidden; }
 
+        /* MODALES Y ADICIONALES */
         .btn-leyenda {
             background: var(--tenkaichi-crema-muro);
             color: var(--tenkaichi-marron-oscuro);
@@ -381,10 +426,17 @@
 
     <div class="container">
         
-        <!-- PANTALLA INICIO -->
         <div id="pantalla-inicio" class="pantalla activa">
             <div class="zona-imagen">
-                <img src="https://googleusercontent.com/image_generation_content/0" alt="Presentación de los contendientes">
+                <i class="fa-solid fa-dragonicono-principal"></i>
+                <img src="./resources/Dragon_ball_intro.jpeg" alt="Presentación de los contendientes">
+                <div class="paragüas" style="top:20px; left:30px;"><i class="fa-solid fa-umbrella"></i></div>
+                <div class="paragüas" style="bottom:20px; right:30px;"><i class="fa-solid fa-umbrella"></i></div>
+                <div class="banderas">
+                    <div class="bandera-item" style="color:var(--tenkaichi-amarillo-bandera)"><i class="fa-solid fa-flag"></i></div>
+                    <div class="bandera-item" style="color:var(--tenkaichi-magenta-bandera)"><i class="fa-solid fa-flag"></i></div>
+                    <div class="bandera-item" style="color:var(--tenkaichi-amarillo-bandera)"><i class="fa-solid fa-flag"></i></div>
+                </div>
             </div>
             
             <h1>DRAGON BALL Z</h1>
@@ -420,10 +472,10 @@
             <p style="text-align:center; font-size: 12px;">Autor: Joaquín Candañedo.<br><a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="./resources/CC_BY_SA.png" alt="Creative Commons Reconocimiento - Compartir Igual"></a></p>
         </div>
 
-        <!-- PANTALLA JUEGO -->
         <div id="pantalla-juego" class="pantalla">
-            <div class="zona-imagen">
-                <img src="https://googleusercontent.com/image_generation_content/1" alt="Los contendientes jugando">
+            <div class="zona-imagen" style="box-shadow: inset 0 0 30px rgba(189, 74, 53, 0.4);">
+                <i class="fa-solid fa-fire-burner icono-principal" style="color: var(--tenkaichi-rojo-ladrillo); text-shadow: 0 0 25px rgba(211, 61, 168, 0.5);"></i>
+                <img src="./resources/Dragon_ball_juego.jpeg" alt="Los contendientes jugando">
             </div>
 
             <div class="info-juego">
@@ -435,10 +487,10 @@
             <div class="tablero" id="tablero"></div>
         </div>
 
-        <!-- PANTALLA RESULTADOS -->
         <div id="pantalla-resultados" class="pantalla">
-            <div class="zona-imagen">
-                <img src="https://googleusercontent.com/image_generation_content/2" alt="El podio de los contendientes">
+            <div class="zona-imagen" style="box-shadow: inset 0 0 30px rgba(255, 222, 0, 0.4);">
+                <i class="fa-solid fa-trophy icono-principal" style="color: var(--dbz-oro); animation: pulseOro 1s infinite alternate;"></i>
+                <img src="./resources/Dragon_ball_trofeo.jpeg" alt="El podio de los contendientes">
             </div>
 
             <h1>¡Fin del Torneo!</h1>
@@ -463,21 +515,29 @@
     </div>
 
     <script>
+        // BANCO DE 18 PAREJAS EXACTAS (36 TARJETAS EN TOTAL - MALLA PAR DE 6x6)
         const bancoFormulas = [
+            // SUMAS DISTINTO DENOMINADOR (m.c.m.)
             { idReal: 1, operacion: `<div class="operacion-flex"><div class="fraccion"><div class="numerador">1</div><div class="denominador">2</div></div><span class="signo">+</span><div class="fraccion"><div class="numerador">1</div><div class="denominador">4</div></div></div>`, resultado: `<div class="operacion-flex"><div class="fraccion"><div class="numerador">3</div><div class="denominador">4</div></div></div>` },
             { idReal: 2, operacion: `<div class="operacion-flex"><div class="fraccion"><div class="numerador">2</div><div class="denominador">3</div></div><span class="signo">+</span><div class="fraccion"><div class="numerador">1</div><div class="denominador">6</div></div></div>`, resultado: `<div class="operacion-flex"><div class="fraccion"><div class="numerador">5</div><div class="denominador">6</div></div></div>` },
             { idReal: 3, operacion: `<div class="operacion-flex"><div class="fraccion"><div class="numerador">1</div><div class="denominador">5</div></div><span class="signo">+</span><div class="fraccion"><div class="numerador">3</div><div class="denominador">10</div></div></div>`, resultado: `<div class="operacion-flex"><div class="fraccion"><div class="numerador">1</div><div class="denominador">2</div></div></div>` },
             { idReal: 4, operacion: `<div class="operacion-flex"><div class="fraccion"><div class="numerador">3</div><div class="denominador">4</div></div><span class="signo">+</span><div class="fraccion"><div class="numerador">1</div><div class="denominador">8</div></div></div>`, resultado: `<div class="operacion-flex"><div class="fraccion"><div class="numerador">7</div><div class="denominador">8</div></div></div>` },
             { idReal: 5, operacion: `<div class="operacion-flex"><div class="fraccion"><div class="numerador">2</div><div class="denominador">5</div></div><span class="signo">+</span><div class="fraccion"><div class="numerador">1</div><div class="denominador">2</div></div></div>`, resultado: `<div class="operacion-flex"><div class="fraccion"><div class="numerador">9</div><div class="denominador">10</div></div></div>` },
+            
+            // RESTAS DISTINTO DENOMINADOR (m.c.m.)
             { idReal: 6, operacion: `<div class="operacion-flex"><div class="fraccion"><div class="numerador">3</div><div class="denominador">4</div></div><span class="signo">-</span><div class="fraccion"><div class="numerador">1</div><div class="denominador">2</div></div></div>`, resultado: `<div class="operacion-flex"><div class="fraccion"><div class="numerador">1</div><div class="denominador">4</div></div></div>` },
             { idReal: 7, operacion: `<div class="operacion-flex"><div class="fraccion"><div class="numerador">5</div><div class="denominador">6</div></div><span class="signo">-</span><div class="fraccion"><div class="numerador">1</div><div class="denominador">3</div></div></div>`, resultado: `<div class="operacion-flex"><div class="fraccion"><div class="numerador">1</div><div class="denominador">2</div></div></div>` },
             { idReal: 8, operacion: `<div class="operacion-flex"><div class="fraccion"><div class="numerador">7</div><div class="denominador">10</div></div><span class="signo">-</span><div class="fraccion"><div class="numerador">2</div><div class="denominador">5</div></div></div>`, resultado: `<div class="operacion-flex"><div class="fraccion"><div class="numerador">3</div><div class="denominador">10</div></div></div>` },
             { idReal: 9, operacion: `<div class="operacion-flex"><div class="fraccion"><div class="numerador">4</div><div class="denominador">3</div></div><span class="signo">-</span><div class="fraccion"><div class="numerador">1</div><div class="denominador">6</div></div></div>`, resultado: `<div class="operacion-flex"><div class="fraccion"><div class="numerador">7</div><div class="denominador">6</div></div></div>` },
+            
+            // MULTIPLICACIONES SIMPLIFICADAS
             { idReal: 10, operacion: `<div class="operacion-flex"><div class="fraccion"><div class="numerador">2</div><div class="denominador">3</div></div><span class="signo">·</span><div class="fraccion"><div class="numerador">3</div><div class="denominador">4</div></div></div>`, resultado: `<div class="operacion-flex"><div class="fraccion"><div class="numerador">1</div><div class="denominador">2</div></div></div>` },
             { idReal: 11, operacion: `<div class="operacion-flex"><div class="fraccion"><div class="numerador">1</div><div class="denominador">5</div></div><span class="signo">·</span><div class="fraccion"><div class="numerador">5</div><div class="denominador">3</div></div></div>`, resultado: `<div class="operacion-flex"><div class="fraccion"><div class="numerador">1</div><div class="denominador">3</div></div></div>` },
             { idReal: 12, operacion: `<div class="operacion-flex"><div class="fraccion"><div class="numerador">4</div><div class="denominador">5</div></div><span class="signo">·</span><div class="fraccion"><div class="numerador">2</div><div class="denominador">3</div></div></div>`, resultado: `<div class="operacion-flex"><div class="fraccion"><div class="numerador">8</div><div class="denominador">15</div></div></div>` },
             { idReal: 13, operacion: `<div class="operacion-flex"><span class="entero">3</span><span class="signo">·</span><div class="fraccion"><div class="numerador">2</div><div class="denominador">9</div></div></div>`, resultado: `<div class="operacion-flex"><div class="fraccion"><div class="numerador">2</div><div class="denominador">3</div></div></div>` },
             { idReal: 14, operacion: `<div class="operacion-flex"><div class="fraccion"><div class="numerador">3</div><div class="denominador">7</div></div><span class="signo">·</span><div class="fraccion"><div class="numerador">14</div><div class="denominador">3</div></div></div>`, resultado: `<div class="operacion-flex"><span class="entero">2</span></div>` },
+
+            // DIVISIONES SIMPLIFICADAS (MÉTODO EN CRUZ)
             { idReal: 15, operacion: `<div class="operacion-flex"><div class="fraccion"><div class="numerador">1</div><div class="denominador">2</div></div><span class="signo">:</span><div class="fraccion"><div class="numerador">1</div><div class="denominador">4</div></div></div>`, resultado: `<div class="operacion-flex"><span class="entero">2</span></div>` },
             { idReal: 16, operacion: `<div class="operacion-flex"><div class="fraccion"><div class="numerador">2</div><div class="denominador">5</div></div><span class="signo">:</span><div class="fraccion"><div class="numerador">3</div><div class="denominador">4</div></div></div>`, resultado: `<div class="operacion-flex"><div class="fraccion"><div class="numerador">8</div><div class="denominador">15</div></div></div>` },
             { idReal: 17, operacion: `<div class="operacion-flex"><div class="fraccion"><div class="numerador">3</div><div class="denominador">4</div></div><span class="signo">:</span><div class="fraccion"><div class="numerador">9</div><div class="denominador">8</div></div></div>`, resultado: `<div class="operacion-flex"><div class="fraccion"><div class="numerador">2</div><div class="denominador">3</div></div></div>` },
@@ -497,6 +557,7 @@
 
         window.onload = function() { generarInputsGrupos(); };
 
+        // Modales
         function abrirLeyenda() { document.getElementById('modal-leyenda').style.display = 'flex'; }
         function cerrarLeyenda() { document.getElementById('modal-leyenda').style.display = 'none'; }
 
